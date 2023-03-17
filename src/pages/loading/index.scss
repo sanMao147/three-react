@@ -1,0 +1,15 @@
+#loading-text-intro {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #f9f0ec;
+    background: radial-gradient(circle at center center, #5d5d5d 0, #090909 58%);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #loading-text-intro.ended {
+    transform: translateY(200%);
+  }
