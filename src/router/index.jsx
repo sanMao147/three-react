@@ -5,6 +5,7 @@ import { createHashRouter, Navigate } from 'react-router-dom'
 
 const Home = lazy(() => import('../pages/home'))
 const Ocean = lazy(() => import('../pages/ocean'))
+const Nature = lazy(() => import('../pages/nature'))
 
 export default createHashRouter([
   {
@@ -18,6 +19,9 @@ export default createHashRouter([
       {
         path: '/home/ocean',
         element: <Ocean />
+      }, {
+        path: '/home/nature',
+        element: <Nature />
       }
     ]
   },

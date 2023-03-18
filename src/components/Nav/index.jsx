@@ -20,7 +20,9 @@ const Index = () => {
       case 'sea':
         navigate('/home/ocean')
         break
-
+      case 'nature':
+        navigate('/home/nature')
+        break
       default:
         navigate('/home')
         break
@@ -55,10 +57,30 @@ const Index = () => {
         }}
         open={open}
       >
-        {visible ? <p className='drawItem' onClick={() => handleRoute('home')}>返回首页</p> : ''}
-        <p className='drawItem' onClick={() => handleRoute('sea')}>海岛风情</p>
-        <p className='drawItem' >Some contents...</p>
-        <p className='drawItem' >Some contents...</p>
+        {visible ? (
+          <p
+            className="drawItem"
+            onClick={() => handleRoute('home')}
+          >
+            返回首页
+          </p>
+        ) : (
+          ''
+        )}
+        <p
+          className="drawItem"
+          onClick={() => handleRoute('sea')}
+        >
+          海岛风情
+        </p>
+        <p
+          className="drawItem"
+          onClick={() => handleRoute('nature')}
+        >
+          自然风光
+        </p>
+        <p className="drawItem">Some contents...</p>
+        <p className="drawItem">Some contents...</p>
       </Drawer>
     </>
   )
