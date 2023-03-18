@@ -41,11 +41,12 @@ const Index = () => {
       </Button>
       <Drawer
         bodyStyle={{
-          backgroundColor: '#eee',
-          color: '#000'
+          backgroundColor: '#3F51B6',
+          color: '#fff'
         }}
         headerStyle={{
-          backgroundColor: '#ccc'
+          backgroundColor: '#3F51B6',
+          color: '#fff'
         }}
         title="页面菜单"
         placement="left"
@@ -54,10 +55,10 @@ const Index = () => {
         }}
         open={open}
       >
-        {visible ? <p onClick={() => handleRoute('home')}>返回首页</p> : ''}
-        <p onClick={() => handleRoute('sea')}>海岛风情</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        {visible ? <p className='drawItem' onClick={() => handleRoute('home')}>返回首页</p> : ''}
+        <p className='drawItem' onClick={() => handleRoute('sea')}>海岛风情</p>
+        <p className='drawItem' >Some contents...</p>
+        <p className='drawItem' >Some contents...</p>
       </Drawer>
     </>
   )
