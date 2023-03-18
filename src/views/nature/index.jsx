@@ -1,14 +1,14 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const Index = () => {
-  let webglRef = useRef(null)
+  let natureRef = useRef(null)
   useEffect(() => {
     init()
   }, [])
   const init = () => {
-    const canvas = webglRef.current
+ 
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight
@@ -23,7 +23,7 @@ const Index = () => {
 
     scene.add(camera)
     const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
+      canvas: natureRef.current,
       antialias: true,
       alpha: true
     })
@@ -33,7 +33,7 @@ const Index = () => {
     renderer.autoClear = true
     // 定义渲染器的输出编码
     renderer.outputEncoding = THREE.sRGBEncoding
-    const controls = new OrbitControls(camera, canvas)
+    const controls = new OrbitControls(camera, natureRef.current)
     controls.enableDamping = true
     window.addEventListener('resize', () => {
       // Update sizes
@@ -72,7 +72,7 @@ const Index = () => {
   }
   return (
     <div>
-      <canvas ref={webglRef}></canvas>
+      <canvas ref={natureRef}></canvas>
     </div>
   )
 }

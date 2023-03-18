@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import Loading from './pages/loading'
+import Loading from './views/loading'
 import router from './router'
 import './App.css'
 
