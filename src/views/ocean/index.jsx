@@ -19,7 +19,7 @@ import {
 import { Sky } from 'three/examples/jsm/objects/Sky'
 import { Water } from 'three/examples/jsm/objects/Water'
 
-const Index = () => {
+const Ocean = () => {
   const [mixers, setMixers] = useState([])
   const [sceneReady, setsceneReady] = useState(false)
   let webglRef = useRef(null)
@@ -377,4 +377,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default Ocean

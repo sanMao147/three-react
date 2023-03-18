@@ -1,14 +1,19 @@
+import nx from '@/assets/textures/nature/nx.png'
+import ny from '@/assets/textures/nature/ny.png'
+import nz from '@/assets/textures/nature/nz.png'
+import px from '@/assets/textures/nature/px.png'
+import py from '@/assets/textures/nature/py.png'
+import pz from '@/assets/textures/nature/pz.png'
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-const Index = () => {
+const Nature = () => {
   let natureRef = useRef(null)
   useEffect(() => {
     init()
   }, [])
   const init = () => {
- 
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight
@@ -20,7 +25,7 @@ const Index = () => {
       0.1,
       1000
     )
-
+    camera.position.set(0, 0, 20)
     scene.add(camera)
     const renderer = new THREE.WebGLRenderer({
       canvas: natureRef.current,
@@ -48,20 +53,17 @@ const Index = () => {
       renderer.setSize(sizes.width, sizes.height)
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     })
-    // const textureLoader = new TextureLoader().load([
-    //   '@/assets/textures/nature/px.png',
-    //   '@/assets/textures/nature/nx.png',
-    //   '@/assets/textures/nature/py.png',
-    //   '@/assets/textures/nature/ny.png',
-    //   '@/assets/textures/nature/pz.png',
-    //   '@/assets/textures/nature/nz.png'
-    // ])
-    const axesHelper = new THREE.AxesHelper( 200 );
-    scene.add( axesHelper );
+    const arr = [px, nx, py, ny, pz, nz]
+    let materials = []
+    arr.map(item => {
+      let textureLoader = new THREE.TextureLoader().load(item)
+      materials.push(new THREE.MeshBasicMaterial({ map: textureLoader }))
+    })
+
     const geometry = new THREE.BoxGeometry(15, 15, 15)
-    const material = new THREE.MeshBasicMaterial({color:0xffff00})
-    const cube = new THREE.Mesh(geometry, material)
-    // cube.scale.set(1, 1, -1)
+
+    const cube = new THREE.Mesh(geometry, materials)
+    cube.geometry.scale(15, 15, -15)
     scene.add(cube)
     const tick = () => {
       controls.update()
@@ -76,4 +78,4 @@ const Index = () => {
     </div>
   )
 }
-export default Index
+export default Nature
