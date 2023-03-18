@@ -11,5 +11,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  assetsInclude: ["**/*.glb","**/*.png"]
+  assetsInclude: ["**/*.glb","**/*.png"],
+  base:'/three-react/'
 })
