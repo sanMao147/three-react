@@ -23,6 +23,13 @@ const Index = () => {
       case 'nature':
         navigate('/home/nature')
         break
+      case 'earth':
+        navigate('/home/earth')
+        break
+
+      case 'world':
+        navigate('/home/world')
+        break
       default:
         navigate('/home')
         break
@@ -79,8 +86,18 @@ const Index = () => {
         >
           自然风光
         </p>
-        <p className="drawItem">Some contents...</p>
-        <p className="drawItem">Some contents...</p>
+        <p
+          className="drawItem"
+          onClick={() => handleRoute('earth')}
+        >
+          数字地球
+        </p>
+        <p
+          className="drawItem"
+          onClick={() => handleRoute('world')}
+        >
+          世界地图
+        </p>
       </Drawer>
     </>
   )
