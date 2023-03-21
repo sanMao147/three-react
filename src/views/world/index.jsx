@@ -39,7 +39,14 @@ import { LightProbeGenerator } from 'three/examples/jsm/lights/LightProbeGenerat
 
 const World = () => {
   // 地图材质颜色
-  const COLOR_ARR = ['#0465BD', '#357bcb', '#3a7abd', '#6C8389', '#F29B1F']
+  const COLOR_ARR = [
+    '#0465BD',
+    '#357bcb',
+    '#3a7abd',
+    '#6C8389',
+    '#F29B1F',
+    '#3646AF'
+  ]
 
   // 墨卡托投影转换
   const projection = d3
@@ -88,8 +95,8 @@ const World = () => {
     camera.lookAt(0, 0, 0)
     scene.add(camera)
 
-    const axexHelper = new AxesHelper(2000)
-    scene.add(axexHelper)
+    // const axexHelper = new AxesHelper(2000)
+    // scene.add(axexHelper)
 
     const renderer = new WebGLRenderer({
       canvas: worldGl.current,
@@ -149,10 +156,15 @@ const World = () => {
     const controls = new OrbitControls(camera, worldGl.current)
     controls.target.set(0, 0, 0)
     controls.enableDamping = true
+
     controls.enablePan = false
-    controls.maxPolarAngle = 1.5
-    controls.minDistance = 80
-    controls.maxDistance = 80
+    // y轴
+    controls.minPolarAngle = 1
+    controls.maxPolarAngle = 1.6
+    // x轴
+    controls.minAzimuthAngle = -0.2
+    controls.maxAzimuthAngle = 0.2
+    controls.maxDistance = 250
 
     initMap(jsonData)
     initLight()
@@ -177,7 +189,7 @@ const World = () => {
   //   地图数据
   const initMap = chinaJson => {
     // 创建一个空对象存放对象
-    const map = new Object3D()
+    const map = new Group()
     // 加载贴图材质
     const urls = [px, nx, py, ny, pz, nz]
     const loader = new CubeTextureLoader()
@@ -300,6 +312,7 @@ const World = () => {
   return (
     <div className="worldpage">
       <canvas ref={worldGl}></canvas>
+      <div className="province"></div>
     </div>
   )
 }
