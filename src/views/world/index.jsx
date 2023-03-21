@@ -5,7 +5,7 @@ import nz from '@/assets/textures/nature/nz.png'
 import px from '@/assets/textures/nature/px.png'
 import py from '@/assets/textures/nature/py.png'
 import pz from '@/assets/textures/nature/pz.png'
-import * as d3 from 'd3'
+import * as d3geo from 'd3-geo'
 import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,
@@ -49,7 +49,7 @@ const World = () => {
   ]
 
   // 墨卡托投影转换
-  const projection = d3
+  const projection = d3geo
     .geoMercator()
     .center([104.0, 37.5])
     .scale(80)
