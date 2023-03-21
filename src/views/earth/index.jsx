@@ -1,4 +1,4 @@
-import { mapPoints } from '@/assets/earth/mapPoints.js'
+import { mapPoints } from '@/utils/earth/mapPoints.js'
 import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,

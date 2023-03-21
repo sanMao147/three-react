@@ -1,10 +1,10 @@
-import jsonData from '@/assets/earth/china.json'
 import nx from '@/assets/textures/nature/nx.png'
 import ny from '@/assets/textures/nature/ny.png'
 import nz from '@/assets/textures/nature/nz.png'
 import px from '@/assets/textures/nature/px.png'
 import py from '@/assets/textures/nature/py.png'
 import pz from '@/assets/textures/nature/pz.png'
+import jsonData from '@/utils/earth/china.json'
 import * as d3geo from 'd3-geo'
 import React, { useState, useEffect, useRef } from 'react'
 import {
