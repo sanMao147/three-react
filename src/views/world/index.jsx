@@ -47,20 +47,25 @@ const World = () => {
     '#F29B1F',
     '#3646AF'
   ]
-
+  const HIGHT_COLOR = '#4fa5ff'
   // 墨卡托投影转换
   const projection = d3geo
     .geoMercator()
     .center([104.0, 37.5])
     .scale(80)
     .translate([0, 0])
-
+  const [provinceName, setProvinceName] = useState('')
   let worldGl = useRef(null)
+
   let lightProbe = null
   let scene = null
+  let map = null
+
+  const mouse = new Vector2()
   useEffect(() => {
     initEarth()
   }, [])
+
   const initEarth = () => {
     const sizes = {
       width: window.innerWidth,
@@ -178,9 +183,46 @@ const World = () => {
       },
       false
     )
+
+    const raycaster = new Raycaster()
+
+    // // 监听鼠标移动
+    // window.addEventListener('mousemove',()=>{
+
+    // },false)
+
     const tick = () => {
       controls.update()
       csm.update()
+      // 通过摄像机和鼠标位置更新射线
+      if (raycaster && map) {
+        raycaster.setFromCamera(mouse, camera)
+        // console.log(map.children)
+        const intersects = raycaster.intersectObjects(map.children)
+        if (intersects.length === 1) {
+          // console.log(intersects) 选中的3D对象
+          // 选中高亮
+          let activeInstersect = [] //设置为空
+          if (activeInstersect && activeInstersect.length > 0) {
+            // 将上一次选中的恢复颜色
+            activeInstersect.forEach(element => {
+              const { object } = element
+              const { _color, material } = object
+              material[0].color.set(_color)
+              material[1].color.set(_color)
+            })
+          }
+          activeInstersect.push(intersects)
+          intersects[0].object.material[0].color.set(HIGHT_COLOR)
+          intersects[0].object.material[1].color.set(HIGHT_COLOR)
+          // 设置名字
+          const properties = intersects[0].object.parent.properties
+
+          setProvinceName(properties.name)
+          // console.log(activeInstersect)
+        }
+      }
+
       renderer.render(scene, camera)
       requestAnimationFrame(tick)
     }
@@ -189,7 +231,7 @@ const World = () => {
   //   地图数据
   const initMap = chinaJson => {
     // 创建一个空对象存放对象
-    const map = new Group()
+    map = new Group()
     // 加载贴图材质
     const urls = [px, nx, py, ny, pz, nz]
     const loader = new CubeTextureLoader()
@@ -304,15 +346,21 @@ const World = () => {
 
   //   增加鼠标事件
   const initRaycaster = event => {
-    const raycaster = new Raycaster()
-    const mouse = new Vector2()
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
   }
+  const province = {
+    position: 'absolute',
+    color: '#fff',
+    userSelect: 'none'
+  }
   return (
-    <div className="worldpage">
-      <canvas ref={worldGl}></canvas>
-      <div className="province"></div>
+    <div style={{ position: 'relative' }}>
+      <canvas
+        ref={worldGl}
+        onMouseMove={initRaycaster}
+      ></canvas>
+      <div style={province}>{provinceName}</div>
     </div>
   )
 }
