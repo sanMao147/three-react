@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
-import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import'
+// import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import'
 import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
@@ -24,18 +24,18 @@ export default defineConfig(({ command }) => {
         algorithm: 'gzip', //压缩算法,可选 [ 'gzip' , 'brotliCompress' ,'deflate' , 'deflateRaw']
         ext: '.gz' //文件后缀
       }),
-      importToCDN({
-        prodUrl: 'https://unpkg.com/{name}@{version}/{path}',
-        modules: [
-          autoComplete('react'),
-          autoComplete('react-dom'),
-          {
-            name: 'three',
-            version: '0.150.1',
-            path: 'build/three.js'
-          }
-        ]
-      }),
+      // importToCDN({
+      //   prodUrl: 'https://unpkg.com/{name}@{version}/{path}',
+      //   modules: [
+      //     autoComplete('react'),
+      //     autoComplete('react-dom'),
+      //     {
+      //       name: 'three',
+      //       version: '0.150.1',
+      //       path: 'build/three.js'
+      //     }
+      //   ]
+      // }),
 
       visualizer({
         emitFile: false,
