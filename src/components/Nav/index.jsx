@@ -1,4 +1,5 @@
 import './index.scss'
+import router from '@/router'
 import { Button, Drawer } from 'antd'
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -8,31 +9,20 @@ const Index = () => {
   const [visible, setVisible] = useState(false)
   const navigate = useNavigate()
   const { pathname } = useLocation()
+
   useEffect(() => {
-    if (pathname !== '/home') {
+    if (pathname !== router.routes[1].path) {
       setVisible(true)
     } else {
       setVisible(false)
     }
   }, [pathname])
-  const handleRoute = e => {
-    switch (e) {
-      case 'sea':
-        navigate('/home/ocean')
-        break
-      case 'nature':
-        navigate('/home/nature')
-        break
-      case 'earth':
-        navigate('/home/earth')
-        break
 
-      case 'world':
-        navigate('/home/world')
-        break
-      default:
-        navigate('/home')
-        break
+  const handleRoute = e => {
+    if (e === 'home') {
+      navigate(router.routes[1].path)
+    } else {
+      navigate(e)
     }
     setOpen(false)
   }
@@ -74,30 +64,17 @@ const Index = () => {
         ) : (
           ''
         )}
-        <p
-          className="drawItem"
-          onClick={() => handleRoute('sea')}
-        >
-          海岛风情
-        </p>
-        <p
-          className="drawItem"
-          onClick={() => handleRoute('nature')}
-        >
-          自然风光
-        </p>
-        <p
-          className="drawItem"
-          onClick={() => handleRoute('earth')}
-        >
-          数字地球
-        </p>
-        <p
-          className="drawItem"
-          onClick={() => handleRoute('world')}
-        >
-          中国地图
-        </p>
+        {router.routes[1].children.map(item => {
+          return (
+            <p
+              className="drawItem"
+              key={item.meta.key}
+              onClick={() => handleRoute(item.path)}
+            >
+              {item.meta.title}
+            </p>
+          )
+        })}
       </Drawer>
     </>
   )

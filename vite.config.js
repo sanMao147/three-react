@@ -8,12 +8,6 @@ import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
-  let base = null
-  if (command === 'build') {
-    base = '/three-react/'
-  } else {
-    base = '/'
-  }
   return {
     plugins: [
       react(),
@@ -53,7 +47,7 @@ export default defineConfig(({ command }) => {
       }
     },
     assetsInclude: ['**/*.glb', '**/*.png'],
-    base,
+    base: '/three-react/',
     build: {
       outDir: 'dist', //输出目录名
       minify: 'terser', //压缩方式
