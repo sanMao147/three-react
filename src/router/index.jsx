@@ -13,7 +13,7 @@ export default createBrowserRouter([
     element: (
       <Navigate
         replace
-        to="/three-react/home"
+        to={`${baseUrl}/home`}
       />
     )
   },
