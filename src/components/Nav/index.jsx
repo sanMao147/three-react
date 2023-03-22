@@ -96,7 +96,7 @@ const Index = () => {
           className="drawItem"
           onClick={() => handleRoute('world')}
         >
-          世界地图
+          中国地图
         </p>
       </Drawer>
     </>
