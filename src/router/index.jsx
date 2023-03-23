@@ -1,11 +1,16 @@
 import React, { lazy } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  createHashRouter,
+  Navigate
+} from 'react-router-dom'
 
 const Home = lazy(() => import('../views/home'))
 const Ocean = lazy(() => import('../views/ocean'))
 const Nature = lazy(() => import('../views/nature'))
 const Earth = lazy(() => import('../views/earth'))
 const World = lazy(() => import('../views/world'))
+const Test = lazy(() => import('../views/test'))
 const baseUrl = '/three-react'
 export default createBrowserRouter([
   {
@@ -51,6 +56,14 @@ export default createBrowserRouter([
         meta: {
           key: 'world',
           title: '中国地图'
+        }
+      },
+      {
+        path: `${baseUrl}/home/test`,
+        element: <Test />,
+        meta: {
+          key: 'test',
+          title: '测试'
         }
       }
     ]

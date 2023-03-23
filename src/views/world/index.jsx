@@ -4,7 +4,7 @@ import nz from '@/assets/textures/nature/nz.png'
 import px from '@/assets/textures/nature/px.png'
 import py from '@/assets/textures/nature/py.png'
 import pz from '@/assets/textures/nature/pz.png'
-import jsonData from '@/utils/earth/china.json'
+// import jsonData from '@/utils/earth/china.json'
 import * as d3geo from 'd3-geo'
 import React, { useState, useEffect, useRef } from 'react'
 import {
@@ -55,18 +55,21 @@ const World = () => {
     .scale(80)
     .translate([0, 0])
   const [provinceName, setProvinceName] = useState('')
+
+  const [proInfo, setProInfo] = useState({ left: '', top: '' })
   let worldGl = useRef(null)
 
   let lightProbe = null
   let scene = null
   let map = null
 
-  const mouse = new Vector2()
   useEffect(() => {
     initEarth()
   }, [])
 
-  const initEarth = () => {
+  const initEarth = async () => {
+    const response = await fetch('/json/china.json')
+    const jsonData = await response.json()
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight
@@ -183,28 +186,38 @@ const World = () => {
       },
       false
     )
-
     const raycaster = new Raycaster()
-
-    // // 监听鼠标移动
-    // window.addEventListener('mousemove',()=>{
-
-    // },false)
+    let mouse = new Vector2()
+    window.addEventListener(
+      'mousemove',
+      event => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+        setProInfo({
+          left: event.clientX + 10 + 'px',
+          top: event.clientY - 20 + 'px'
+        })
+      },
+      false
+    )
 
     const tick = () => {
       controls.update()
+      camera.updateMatrixWorld()
       csm.update()
+
       // 通过摄像机和鼠标位置更新射线
-      if (raycaster && map) {
+      if (raycaster && map.children.length > 0) {
         raycaster.setFromCamera(mouse, camera)
-        // console.log(map.children)
+
         const intersects = raycaster.intersectObjects(map.children)
+
         if (intersects.length === 1) {
-          // console.log(intersects) 选中的3D对象
+          // console.log(intersects[0]) //选中的省份
           // 选中高亮
-          let activeInstersect = [] //设置为空
-          if (activeInstersect && activeInstersect.length > 0) {
+          /*   if (activeInstersect && activeInstersect.length > 0) {
             // 将上一次选中的恢复颜色
+
             activeInstersect.forEach(element => {
               const { object } = element
               const { _color, material } = object
@@ -212,14 +225,18 @@ const World = () => {
               material[1].color.set(_color)
             })
           }
-          activeInstersect.push(intersects)
+          var activeInstersect = [] //设置为空
+          activeInstersect.push(intersects[0])
+          console.log(activeInstersect)
           intersects[0].object.material[0].color.set(HIGHT_COLOR)
-          intersects[0].object.material[1].color.set(HIGHT_COLOR)
+          intersects[0].object.material[1].color.set(HIGHT_COLOR) */
           // 设置名字
           const properties = intersects[0].object.parent.properties
 
           setProvinceName(properties.name)
           // console.log(activeInstersect)
+        } else {
+          setProvinceName('')
         }
       }
 
@@ -243,7 +260,9 @@ const World = () => {
         const province = new Object3D()
         // 每个省的坐标数据
         const { coordinates } = ele.geometry
-        const color = COLOR_ARR[index % COLOR_ARR.length]
+        // const color = COLOR_ARR[index % COLOR_ARR.length]
+        const color = Math.random() * 0xffffff
+
         //   循环坐标数组
         coordinates.forEach(multiPolygon => {
           multiPolygon.forEach(polygon => {
@@ -344,23 +363,18 @@ const World = () => {
     scene.add(lightGroup)
   }
 
-  //   增加鼠标事件
-  const initRaycaster = event => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-  }
-  const province = {
+  const provinceInfo = {
     position: 'absolute',
-    color: '#fff',
+    top: `${proInfo.top}`,
+    left: `${proInfo.left}`,
+
+    color: '#000',
     userSelect: 'none'
   }
   return (
     <div style={{ position: 'relative' }}>
-      <canvas
-        ref={worldGl}
-        onMouseMove={initRaycaster}
-      ></canvas>
-      <div style={province}>{provinceName}</div>
+      <div style={provinceInfo}>{provinceName}</div>
+      <canvas ref={worldGl}></canvas>
     </div>
   )
 }
