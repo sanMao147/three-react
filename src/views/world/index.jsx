@@ -1,10 +1,10 @@
+import { localChina, localWorld } from '@/api/mapDataAPi'
 import nx from '@/assets/textures/nature/nx.png'
 import ny from '@/assets/textures/nature/ny.png'
 import nz from '@/assets/textures/nature/nz.png'
 import px from '@/assets/textures/nature/px.png'
 import py from '@/assets/textures/nature/py.png'
 import pz from '@/assets/textures/nature/pz.png'
-// import jsonData from '@/utils/earth/china.json'
 import * as d3geo from 'd3-geo'
 import React, { useState, useEffect, useRef } from 'react'
 import {
@@ -68,8 +68,12 @@ const World = () => {
   }, [])
 
   const initEarth = async () => {
-    const response = await fetch('/json/china.json')
-    const jsonData = await response.json()
+    // const response = await fetch('/json/china.json')
+    // const jsonData = await response.json()
+
+    const res = await localChina()
+    const jsonData = JSON.parse(JSON.stringify(res))
+
     const sizes = {
       width: window.innerWidth,
       height: window.innerHeight
@@ -367,7 +371,6 @@ const World = () => {
     position: 'absolute',
     top: `${proInfo.top}`,
     left: `${proInfo.left}`,
-
     color: '#000',
     userSelect: 'none'
   }

@@ -1,6 +1,6 @@
 import terser from '@rollup/plugin-terser'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import { fileURLToPath, URL } from 'node:url'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 // import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import'
@@ -40,10 +40,10 @@ export default defineConfig(({ command }) => {
     resolve: {
       alias: {
         // 只能是绝对路径
-        // '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url))
         // '@': path.resolve(__dirname, './src')
 
-        '@': resolve(__dirname, './src')
+        // '@': resolve(__dirname, './src')
       }
     },
     assetsInclude: ['**/*.glb', '**/*.png'],
