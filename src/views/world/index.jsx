@@ -371,7 +371,7 @@ const World = () => {
     position: 'absolute',
     top: `${proInfo.top}`,
     left: `${proInfo.left}`,
-    color: '#000',
+    color: '#050315',
     userSelect: 'none'
   }
   return (
