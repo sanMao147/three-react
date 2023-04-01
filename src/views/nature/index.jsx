@@ -1,4 +1,3 @@
-import iphone from '@/assets/models/iphone.glb'
 import nx from '@/assets/textures/nx.jpg'
 import ny from '@/assets/textures/ny.jpg'
 import nz from '@/assets/textures/nz.jpg'
@@ -83,58 +82,8 @@ const Nature = () => {
     const light = new AmbientLight(0x404040)
     scene.add(light)
 
-    // 创建视频材质
-    const video = videoRef.current
-    const videoTexture = new VideoTexture(video)
-
-    const screen = {
-      mesh: null,
-      material: null,
-      videoMaterial: new MeshPhysicalMaterial({
-        map: videoTexture,
-        envMap: environmentMap
-      })
-    }
     // 加载管理
     const loadingManager = new LoadingManager()
-    loadingManager.onLoad = () => {}
-
-    // 使用dracoLoader加载用blender压缩过的模型
-    const dracoLoader = new DRACOLoader()
-    dracoLoader.setDecoderPath('/draco/')
-    dracoLoader.setDecoderConfig({ type: 'js' })
-    const gltfLoader = new GLTFLoader(loadingManager)
-    gltfLoader.setDRACOLoader(dracoLoader)
-
-    let model = null
-    gltfLoader.load(iphone, mesh => {
-      if (mesh.scene) {
-        mesh.scene.traverse(child => {
-          if (
-            child instanceof Mesh &&
-            child.material instanceof MeshStandardMaterial
-          ) {
-            child.material.envMap = environmentMap
-            child.material.envMapIntensity = 2
-            if (child.name === '屏幕') {
-              screen.mesh = child
-              screen.material = child.material
-            }
-            if (child.name.includes('边框')) {
-              child.material.metalness = 0.8
-            }
-            if (child.name.includes('logo')) {
-              child.material.metalness = 1
-            }
-          }
-        })
-        mesh.scene.scale.set(60, 60, 60)
-        mesh.scene.position.y = -5
-        mesh.scene.rotation.y = -Math.PI
-        model = mesh.scene
-        scene.add(mesh.scene)
-      }
-    })
 
     // 点击事件捕获
     const raycaster = new Raycaster()
@@ -159,7 +108,7 @@ const Nature = () => {
     )
 
     const tick = () => {
-      model && (model.rotation.y += 0.005)
+      // model && (model.rotation.y += 0.005)
       controls.update()
       renderer.render(scene, camera)
       requestAnimationFrame(tick)

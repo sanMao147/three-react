@@ -46,7 +46,7 @@ export default defineConfig(({ command }) => {
         // '@': resolve(__dirname, './src')
       }
     },
-    assetsInclude: ['**/*.glb', '**/*.png'],
+    assetsInclude: ['**/*.glb', '**/*.FBX', '**/*.png'],
     base: '/three-react/',
     build: {
       outDir: 'dist', //输出目录名
