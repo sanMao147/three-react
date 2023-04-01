@@ -7,11 +7,10 @@ import {
 
 const Home = lazy(() => import('../views/home'))
 const Ocean = lazy(() => import('../views/ocean'))
-const Nature = lazy(() => import('../views/nature'))
 const Earth = lazy(() => import('../views/earth'))
 const World = lazy(() => import('../views/world'))
-const Test = lazy(() => import('../views/test'))
 const City = lazy(() => import('../views/city'))
+const Effect = lazy(() => import('../views/effect'))
 
 export default createBrowserRouter(
   [
@@ -36,14 +35,7 @@ export default createBrowserRouter(
             title: '海岛风情'
           }
         },
-        /*    {
-          path: `/home/nature`,
-          element: <Nature />,
-          meta: {
-            key: 'nature',
-            title: '自然风光'
-          }
-        }, */
+
         {
           path: `/home/earth`,
           element: <Earth />,
@@ -60,20 +52,21 @@ export default createBrowserRouter(
             title: '中国地图'
           }
         },
-        /*    {
-          path: `/home/test`,
-          element: <Test />,
-          meta: {
-            key: 'test',
-            title: '测试'
-          }
-        }, */
+
         {
           path: `/home/city`,
           element: <City />,
           meta: {
             key: 'city',
             title: '智慧城市'
+          }
+        },
+        {
+          path: `/home/effect`,
+          element: <Effect />,
+          meta: {
+            key: 'effect',
+            title: '特效'
           }
         }
       ]
