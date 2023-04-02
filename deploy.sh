@@ -1,5 +1,5 @@
 set -e
-yarn docs:build
+yarn build
 git add -A
 git commit -m 'deploy'
 git push -u origin main

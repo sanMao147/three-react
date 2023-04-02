@@ -1,10 +1,5 @@
+import { urlList } from './urlList'
 import { localChina, localWorld } from '@/api/mapDataAPi'
-import nx from '@/assets/textures/nature/nx.png'
-import ny from '@/assets/textures/nature/ny.png'
-import nz from '@/assets/textures/nature/nz.png'
-import px from '@/assets/textures/nature/px.png'
-import py from '@/assets/textures/nature/py.png'
-import pz from '@/assets/textures/nature/pz.png'
 import * as d3geo from 'd3-geo'
 import React, { useState, useEffect, useRef } from 'react'
 import {
@@ -58,11 +53,9 @@ const World = () => {
 
   const [proInfo, setProInfo] = useState({ left: '', top: '' })
   let worldGl = useRef(null)
-
   let lightProbe = null
   let scene = null
   let map = null
-
   useEffect(() => {
     initEarth()
   }, [])
@@ -254,10 +247,10 @@ const World = () => {
     // 创建一个空对象存放对象
     map = new Group()
     // 加载贴图材质
-    const urls = [px, nx, py, ny, pz, nz]
+
     const loader = new CubeTextureLoader()
     // 绘制地图
-    loader.load(urls, cube => {
+    loader.load(urlList, cube => {
       lightProbe.copy(LightProbeGenerator.fromCubeTexture(cube))
       chinaJson.features.forEach((ele, index) => {
         // 定义一个省份3D对象
