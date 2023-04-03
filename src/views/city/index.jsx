@@ -1,10 +1,4 @@
 import CityClass from './city'
-import nx from '@/assets/textures/city/nx.png'
-import ny from '@/assets/textures/city/ny.png'
-import nz from '@/assets/textures/city/nz.png'
-import px from '@/assets/textures/city/px.png'
-import py from '@/assets/textures/city/py.png'
-import pz from '@/assets/textures/city/pz.png'
 import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,
@@ -21,7 +15,6 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-const arr = [px, nx, py, ny, pz, nz]
 const City = () => {
   let cityGl = useRef(null)
   useEffect(() => {
@@ -55,12 +48,6 @@ const City = () => {
 
     const ah = new AxesHelper(800)
     scene.add(ah)
-
-    // background
-    /*    const loader = new CubeTextureLoader()
-    const environmentMap = loader.load(arr)
-    // environmentMap.encoding = sRGBEncoding
-    scene.background = environmentMap */
 
     /**
      * Light
