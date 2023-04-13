@@ -64,7 +64,7 @@ export const routes = [
     element: <Effect />,
     meta: {
       key: 'effect',
-      title: '特效'
+      title: '着色器'
     }
   }
 ]

@@ -1,10 +1,10 @@
 import CityClass from './city'
-import nx from '@/assets/textures/city/nx.png'
-import ny from '@/assets/textures/city/ny.png'
-import nz from '@/assets/textures/city/nz.png'
-import px from '@/assets/textures/city/px.png'
-import py from '@/assets/textures/city/py.png'
-import pz from '@/assets/textures/city/pz.png'
+import city1 from '@/assets/city/1.jpg'
+import city2 from '@/assets/city/2.jpg'
+import city3 from '@/assets/city/3.jpg'
+import city4 from '@/assets/city/4.jpg'
+import city5 from '@/assets/city/5.jpg'
+import city6 from '@/assets/city/6.jpg'
 import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,
@@ -21,7 +21,6 @@ import {
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-const arr = [px, nx, py, ny, pz, nz]
 const City = () => {
   let cityGl = useRef(null)
   useEffect(() => {
@@ -56,12 +55,16 @@ const City = () => {
     const ah = new AxesHelper(800)
     scene.add(ah)
 
-    // background
-    /*    const loader = new CubeTextureLoader()
-    const environmentMap = loader.load(arr)
-    // environmentMap.encoding = sRGBEncoding
-    scene.background = environmentMap */
-
+    // 设置天空盒
+    const cube = new CubeTextureLoader().load([
+      city1,
+      city2,
+      city3,
+      city4,
+      city5,
+      city6
+    ])
+    scene.background = cube
     /**
      * Light
      */
