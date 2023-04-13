@@ -1,4 +1,5 @@
 import Shanghai from '@/assets/models/shanghai.FBX'
+
 import {
   Group,
   Vector3,

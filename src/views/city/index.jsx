@@ -1,15 +1,12 @@
 import CityClass from './city'
-import city1 from '@/assets/city/1.jpg'
-import city2 from '@/assets/city/2.jpg'
-import city3 from '@/assets/city/3.jpg'
-import city4 from '@/assets/city/4.jpg'
-import city5 from '@/assets/city/5.jpg'
-import city6 from '@/assets/city/6.jpg'
+// import { createLine, commonUniforms, flyLine } from '@/utils/effect/RunLine'
+import { sky } from './cityfig'
 import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,
   Clock,
   Color,
+  Vector3,
   PerspectiveCamera,
   WebGLRenderer,
   AmbientLight,
@@ -52,18 +49,11 @@ const City = () => {
     renderer.setClearColor(new Color('#32373E'), 1) //设置颜色及其透明度
     // renderer.toneMapping = ACESFilmicToneMapping
 
-    const ah = new AxesHelper(800)
-    scene.add(ah)
+    // const ah = new AxesHelper(800)
+    // scene.add(ah)
 
     // 设置天空盒
-    const cube = new CubeTextureLoader().load([
-      city1,
-      city2,
-      city3,
-      city4,
-      city5,
-      city6
-    ])
+    const cube = new CubeTextureLoader().load(sky)
     scene.background = cube
     /**
      * Light
@@ -80,6 +70,9 @@ const City = () => {
     controls.enableDamping = true
     // controls.enablePan = false
 
+    // 飞线
+    // createLine()
+    // scene.add(flyLine)
     // 监听页面缩放更新相机和场景
     window.addEventListener(
       'resize',
@@ -99,7 +92,8 @@ const City = () => {
 
     const tick = () => {
       const dt = clock.getDelta()
-
+      // 飞线
+      // commonUniforms.u_time.value += 0.01
       city.animate(dt)
       controls.update()
       renderer.render(scene, camera)
