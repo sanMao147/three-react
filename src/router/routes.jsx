@@ -1,3 +1,13 @@
+/*
+ * @Author: wohool
+ * @Date: 2023-04-03 09:41:45
+ * @LastEditors: wohool
+ * @LastEditTime: 2023-04-03 12:52:28
+ * @FilePath: \three-react\src\router\routes.jsx
+ * @Description:路由配置表
+ *
+ * Copyright (c) 2023 by sanMao147----charlielin007@outlook.com, All Rights Reserved.
+ */
 import React, { lazy } from 'react'
 
 const Ocean = lazy(() => import('../views/ocean'))
@@ -48,13 +58,13 @@ export const routes = [
       key: 'house',
       title: '全景看房'
     }
+  },
+  {
+    path: `/home/effect`,
+    element: <Effect />,
+    meta: {
+      key: 'effect',
+      title: '着色器'
+    }
   }
-  // {
-  //   path: `/home/effect`,
-  //   element: <Effect />,
-  //   meta: {
-  //     key: 'effect',
-  //     title: '特效'
-  //   }
-  // }
 ]

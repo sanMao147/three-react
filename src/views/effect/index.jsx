@@ -2,17 +2,30 @@ import React, { useState, useEffect, useRef } from 'react'
 import {
   Scene,
   Clock,
+  Vector3,
+  Mesh,
   PerspectiveCamera,
   WebGLRenderer,
-  ACESFilmicToneMapping
+  MeshBasicMaterial,
+  DoubleSide,
+  ACESFilmicToneMapping,
+  PlaneGeometry,
+  AxesHelper
 } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const Effect = () => {
   let effectGl = useRef(null)
+  let [data, setData] = useState({
+    scene: null,
+    camera: null,
+    renderer: null,
+    controls: null
+  })
   useEffect(() => {
     initEffect()
   }, [])
+
   const initEffect = () => {
     const sizes = {
       width: window.innerWidth,
@@ -26,7 +39,8 @@ const Effect = () => {
       1,
       1000
     )
-    camera.position.set(0, 0, 16)
+    camera.position.set(0, 150, 100)
+    camera.lookAt(new Vector3(0, 0, 0))
     scene.add(camera)
 
     const renderer = new WebGLRenderer({
@@ -42,6 +56,36 @@ const Effect = () => {
     controls.enableDamping = true
     controls.enablePan = false
 
+    setData(old => {
+      return {
+        ...old,
+        scene,
+        camera,
+        renderer,
+        controls
+      }
+    })
+    // 场景地板
+    const creatFloor = () => {
+      const floorMesh = new Mesh(
+        new PlaneGeometry(100, 100),
+        new MeshBasicMaterial({
+          color: 0xffff00,
+          transparent: true,
+          depthWrite: false,
+          side: DoubleSide
+        })
+      )
+      // floorMesh.receiveShadow = true;
+      floorMesh.rotation.x = -Math.PI / 2.0
+      floorMesh.layers.enable(1)
+
+      scene.add(floorMesh)
+    }
+    creatFloor() // 创建地板
+
+    const axes = new AxesHelper(200)
+    scene.add(axes)
     // 监听页面缩放更新相机和场景
     window.addEventListener(
       'resize',
@@ -59,6 +103,7 @@ const Effect = () => {
     }
     tick()
   }
+
   return (
     <div className="effectpage">
       <canvas ref={effectGl}></canvas>
