@@ -11,7 +11,7 @@ export default createBrowserRouter(
       element: (
         <Navigate
           replace
-          to={`/home`}
+          to={`/home/effect`}
         />
       )
     },

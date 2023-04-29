@@ -5,12 +5,13 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 // import { autoComplete, Plugin as importToCDN } from 'vite-plugin-cdn-import'
 import viteCompression from 'vite-plugin-compression'
-
+import glsl from 'vite-plugin-glsl'
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   return {
     plugins: [
       react(),
+      glsl(),
       viteCompression({
         verbose: true, //是否在控制台输出压缩结果
         disable: false, //是否禁用,相当于开关在这里

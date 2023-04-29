@@ -7,7 +7,15 @@
     "dev": "vite --open",
     "build": "vite build",
     "preview": "vite preview",
-    "d": "./deploy.sh"
+    "d": "./deploy.sh",
+    "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,jsx,css,less,scss,stylus,html,md}\"",
+    "lint:eslint": "eslint --fix --ext .js,.ts,.jsx ./src"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "pnpm run lint:eslint",
+      "pnpm run lint:prettier"
+    ]
   },
   "dependencies": {
     "@rollup/plugin-terser": "^0.4.0",
@@ -27,11 +35,13 @@
     "react-router-dom": "^6.9.0",
     "sass": "^1.59.3",
     "three": "^0.150.1",
-    "vite-plugin-compression": "^0.5.1"
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-glsl": "^1.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "lint-staged": "^13.2.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "vite": "^4.2.0",
     "vite-plugin-cdn-import": "^0.3.5"
